@@ -65,10 +65,13 @@ void alta_secuencial(){
 	
 	if(alias==NULL){
 		alias=fopen("PRODUCTO.SEC","wb");
-		cout<<"INGRESA EL NUMERO DEL PRODUCTO:  "<<endl;
-		cin>>num_producto;
-		fread(&Registro, sizeof(Registro),1,alias);
+		alias=fopen("PRODUCTO.SEC","rb+");
 	}
+	cout<<"INGRESA EL NUMERO DEL PRODUCTO:  "<<endl;
+	cin>>num_producto;
+		
+	int count=0;
+	//Busca si ya eciste el numero de producto en el archivo
 	while(!feof(alias)){
 		if(Registro.num_producto==num_producto){
 			cout<<"REGISTRO DUPLICADO"<<endl;
@@ -76,32 +79,25 @@ void alta_secuencial(){
 			getch();
 			return;
 		}
-		fread(&Registro, sizeof(Registro),1,alias);
-		cout<<"INGRESA LA DESCRIPCION:"<<endl;
-		cin>>(Registro.descripcion);
-		cout<<"INGRESA LA CANTIDAD"<<endl;
-		cin>>Registro.cantidad;
-		cout<<"INGRESA EL PRECIO"<<endl;
-		cin>>Registro.precio;
-		
-		do{
-			cout<<"GARANTIA: "<<endl;
-			Registro.garantia = toupper(getche());	
-		}while(Registro.garantia!='S' &&Registro.garantia !='N');
-		Registro.num_producto = num_producto;
-		
-		fwrite(&Registro, sizeof(Registro),1,alias);
-		fclose(alias);
-		cout<<"PRODUCTO REGISTRADO"<<endl;
-		getch();
-		return;
-		
-	
-		
+		fread(&Registro,sizeof(Registro),1,alias);
 	}
+	//Como no existe el numero de producto, permite leer los demas datos para registrar el producto
+	Registro.num_producto=num_producto;
+	cout<<"INGRESA LA DESCRIPCION:"<<endl;
+	cin>>(Registro.descripcion);
+	cout<<"INGRESA LA CANTIDAD"<<endl;
+	cin>>Registro.cantidad;
+	cout<<"INGRESA EL PRECIO"<<endl;
+	cin>>Registro.precio;
+	do{
+		cout<<"GARANTIA: "<<endl;
+		Registro.garantia = toupper(getche());
+	}while(Registro.garantia!='S' &&Registro.garantia !='N');
 	
+	fwrite(&Registro, sizeof(Registro),1,alias);
+	fclose(alias);
+    getch();
 }
-
 
 void consultas_secuenciales(){
   int num_producto; 
