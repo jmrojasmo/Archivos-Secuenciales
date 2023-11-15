@@ -74,7 +74,7 @@ int main()
 }
 
 void alta_secuencial(){
-	int num_producto;
+	int num_producto;	
 	
 	system("cls");
 	cout<<"ALTAS DE PRODUCTOS"<<endl;
@@ -101,7 +101,8 @@ void alta_secuencial(){
 	//Como no existe el numero de producto, permite leer los demas datos para registrar el producto
 	Registro.num_producto=num_producto;
 	cout<<"INGRESA LA DESCRIPCION:"<<endl;
-	cin>>(Registro.descripcion);
+	cin.ignore();
+	cin.getline(Registro.descripcion,30);
 	cout<<"INGRESA LA CANTIDAD"<<endl;
 	cin>>Registro.cantidad;
 	cout<<"INGRESA EL PRECIO"<<endl;
@@ -248,7 +249,7 @@ void baja_logica_secuencial()
       printf("\n\r%3d\t%30s\t%3d\t\t$%4.2f\t%c",Registro.num_producto,Registro.descripcion,Registro.cantidad,Registro.precio,Registro.garantia);
 
       Registro.num_producto=0;
-      strcpy(Registro.descripcion,"");
+      //strcpy(Registro.descripcion,"");
       Registro.cantidad=0;
       Registro.precio=0.0;
       Registro.garantia=' ';
